@@ -1,0 +1,2 @@
+
+python detect_track_cards_base.py --source 0 --cfg cfg/data.cfg --weights yolor_p6.pt --names data\data.names --conf 0.5 --img-size 1280 --device 0 --view-img
