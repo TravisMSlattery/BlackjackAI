@@ -61,28 +61,28 @@ def should_double(hand,dealer,p_soft):
             i = 1
         else:
             i = 0
-        if hand[i][0] == '8' and dealer[0][0] == '6':
+        if hand[i][0] == '8' and dealer == '6':
             return True
-        elif hand[i][0] == '7' and 1 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '7' and 1 < dealer < 7:
             return True
-        elif hand[i][0] == '6' and 2 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '6' and 2 < dealer < 7:
             return True
-        elif hand[i][0] == '5' and 3 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '5' and 3 < dealer < 7:
             return True
-        elif hand[i][0] == '4' and 3 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '4' and 3 < dealer < 7:
             return True
-        elif hand[i][0] == '3' and 4 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '3' and 4 < dealer < 7:
             return True
-        elif hand[i][0] == '2' and 4 < int(dealer[0][0]) < 7:
+        elif hand[i][0] == '2' and 4 < dealer < 7:
             return True
         else:
             return False
     else:
         if player_total == 11:
             return True
-        elif player_total == 10 and 1 < int(dealer[0][0]) <= 9 :
+        elif player_total == 10 and 1 < dealer <= 9 :
             return True
-        elif player_total == 9 and 2 < int(dealer[0][0]) < 7:
+        elif player_total == 9 and 2 < dealer < 7:
             return True
         else:
             return False
@@ -91,19 +91,19 @@ def should_double(hand,dealer,p_soft):
 def should_split(hand,dealer):
     if hand[0][0] == 'A' and hand[1][0] == 'A':
         return True
-    elif hand[0][0] == '9' and hand[1][0] == '9' and dealer[0][0] != '7' and 1 < int(dealer[0][0]) <= 9 :
+    elif hand[0][0] == '9' and hand[1][0] == '9' and dealer != '7' and 1 < dealer <= 9 :
         return True
     elif hand[0][0] == '8' and hand[1][0] == '8':
         return True
-    elif hand[0][0] == '7' and hand[1][0] == '7' and 1 < int(dealer[0][0]) < 8:
+    elif hand[0][0] == '7' and hand[1][0] == '7' and 1 < dealer < 8:
         return True
-    elif hand[0][0] == '6' and hand[1][0] == '6' and 1 < int(dealer[0][0]) < 7:
+    elif hand[0][0] == '6' and hand[1][0] == '6' and 1 < dealer < 7:
         return True
-    elif hand[0][0] == '4' and hand[1][0] == '4' and 4 < int(dealer[0][0]) < 7:
+    elif hand[0][0] == '4' and hand[1][0] == '4' and 4 < dealer < 7:
         return True
-    elif hand[0][0] == '3' and hand[1][0] == '3' and 1 < int(dealer[0][0]) < 8:
+    elif hand[0][0] == '3' and hand[1][0] == '3' and 1 < dealer < 8:
         return True
-    elif hand[0][0] == '2' and hand[1][0] == '2' and 1 < int(dealer[0][0]) < 8:
+    elif hand[0][0] == '2' and hand[1][0] == '2' and 1 < dealer < 8:
         return True
     else:
         return False
@@ -203,7 +203,7 @@ def split_cards(xycord,labels):
                 if (not player.count(labels[y])):
                     player.append(labels[y])
                     if(can_split and not split):
-                        if i[0]>700 and i[1]<480:
+                        if i[0]>650 and i[1]>480:
                             wallet = wallet-100
                             split=True
                     if(can_double and not bj_double):
@@ -597,12 +597,12 @@ def detect(save_img=False):
                         else:
                             strat2 = 'stand'
                     elif (len(player) == 2 and len(dealer) == 1):
-                        if should_split(player,dealer) and not bj_double and not split:
+                        if should_split(player,dealer_cal) and not bj_double and not split:
                             cv2.rectangle(im0, (700, 480), (800, 540), [85, 45, 255], 15)
                             cv2.putText(im0, 'Split', (700, 545), 0, 1, [225, 255, 255], thickness=2, lineType=cv2.LINE_AA)
                             can_split = True
                             strat = 'split'
-                        elif should_double(player,dealer,p_soft) and strat == ''  and not bj_double and not split:
+                        elif should_double(player,dealer_cal,p_soft) and strat == ''  and not bj_double and not split:
                             strat = 'double'
                             can_double = True
                             cv2.rectangle(im0, (700, 120), (800, 60), [85, 45, 255], 15)
